@@ -11,7 +11,7 @@ Mastermind::Mastermind(std::unique_ptr<AbstractUserRequestAcceptor> &acceptor) :
 }
 
 void Mastermind::nextStep() {
-    bool execution_status = _current_state->exec(_acceptor);
+    bool execution_status = _current_state->exec(_area, _acceptor);
     if (execution_status) {
         _current_state = _current_state->nextState();
     }

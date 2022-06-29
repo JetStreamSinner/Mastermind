@@ -3,7 +3,7 @@
 #include "../abstract_user_request_acceptor.h"
 #include "start_state.h"
 
-bool WinState::exec(std::shared_ptr<GameArea>& area, std::unique_ptr<AbstractUserRequestAcceptor> request_acceptor) {
+bool WinState::exec(std::shared_ptr<GameArea>& area, const std::unique_ptr<AbstractUserRequestAcceptor>& request_acceptor) {
     request_acceptor->writeMessage("You won!");
     return true;
 }
