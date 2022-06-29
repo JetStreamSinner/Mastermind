@@ -38,4 +38,5 @@ std::unique_ptr<AbstractMastermindState> GuessState::nextState() {
         case NextState::Same:
             return std::make_unique<GuessState>();
     }
+    throw std::runtime_error("State error");
 }

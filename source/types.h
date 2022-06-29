@@ -1,4 +1,16 @@
 #pragma once
 #include <vector>
 
-using SequenceRow = std::vector<int>;
+enum class EnmColor {
+    Red,
+    Green,
+    Yellow,
+    Purple,
+    Blue,
+    Brown,
+    White,
+    Black
+};
+
+using Color = EnmColor;
+using SequenceRow = std::vector<Color>;

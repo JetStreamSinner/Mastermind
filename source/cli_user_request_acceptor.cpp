@@ -2,11 +2,14 @@
 #include <iostream>
 #include <iterator>
 #include <sstream>
+#include <algorithm>
 
 SequenceRow sequenceRowFromString(const std::string &str) {
     std::stringstream ss(str);
     SequenceRow out;
-    std::copy(std::istream_iterator<int>(ss), std::istream_iterator<int>(), std::back_inserter(out));
+    std::transform(std::istream_iterator<int>(ss), std::istream_iterator<int>(), std::back_inserter(out), [](int val) {
+        return static_cast<Color>(val);
+    });
     return std::move(out);
 }
 
