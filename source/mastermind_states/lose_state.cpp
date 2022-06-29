@@ -4,6 +4,7 @@
 #include "start_state.h"
 
 bool LoseState::exec(std::shared_ptr<GameArea>& area, std::unique_ptr<AbstractUserRequestAcceptor> request_acceptor) {
+    request_acceptor->writeMessage("You lose!");
     return true;
 }
 
