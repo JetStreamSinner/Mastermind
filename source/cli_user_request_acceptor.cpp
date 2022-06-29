@@ -14,7 +14,7 @@ CliUserRequestAcceptor::CliUserRequestAcceptor(std::shared_ptr<std::istream> &in
                                                                                                                         _output_stream(out) {
 }
 
-int CliUserRequestAcceptor::requestSuggestionsCount() const {
+std::size_t CliUserRequestAcceptor::requestSuggestionsCount() const {
     std::size_t suggestions_count = 0;
     *_input_stream >> suggestions_count;
     return suggestions_count;

@@ -7,7 +7,7 @@ class CliUserRequestAcceptor : public AbstractUserRequestAcceptor {
 public:
     CliUserRequestAcceptor(std::shared_ptr<std::istream> &in, std::shared_ptr<std::ostream> &out);
     SequenceRow requestTargetRow() const final;
-    int requestSuggestionsCount() const final;
+    std::size_t requestSuggestionsCount() const final;
     SequenceRow requestGuess() const final;
     void writeMessage(const std::string& message) const final;
 private:
