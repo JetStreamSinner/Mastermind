@@ -4,6 +4,6 @@
 
 class StartState : public AbstractMastermindState {
 public:
-    bool exec(std::shared_ptr<GameArea>& area, const std::unique_ptr<AbstractUserRequestAcceptor>& request_acceptor) final;
+    bool exec(std::shared_ptr<GameArea> &area, const std::unique_ptr<AbstractUserRequestAcceptor> &request_acceptor) final;
     std::unique_ptr<AbstractMastermindState> nextState() final;
 };

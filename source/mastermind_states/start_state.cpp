@@ -1,10 +1,10 @@
 #include "start_state.h"
-#include "guess_state.h"
-#include "../game_area.h"
 #include "../abstract_user_request_acceptor.h"
+#include "../game_area.h"
 #include "../guess_checker.h"
+#include "guess_state.h"
 
-bool StartState::exec(std::shared_ptr<GameArea>& area, const std::unique_ptr<AbstractUserRequestAcceptor>& request_acceptor) {
+bool StartState::exec(std::shared_ptr<GameArea> &area, const std::unique_ptr<AbstractUserRequestAcceptor> &request_acceptor) {
     request_acceptor->writeMessage("Welcome to the game");
     request_acceptor->writeMessage("Write suggestions count");
     const std::size_t suggestions_count = request_acceptor->requestSuggestionsCount();

@@ -1,14 +1,13 @@
 #include "guess_state.h"
-#include "../game_area.h"
 #include "../abstract_user_request_acceptor.h"
+#include "../game_area.h"
 #include "lose_state.h"
 #include "win_state.h"
 
 GuessState::GuessState() : _nextState(NextState::Same) {
-
 }
 
-bool GuessState::exec(std::shared_ptr<GameArea>& area, const std::unique_ptr<AbstractUserRequestAcceptor>& request_acceptor) {
+bool GuessState::exec(std::shared_ptr<GameArea> &area, const std::unique_ptr<AbstractUserRequestAcceptor> &request_acceptor) {
     request_acceptor->writeMessage("Make your guess");
     SequenceRow guess = request_acceptor->requestGuess();
     const bool suggestions_end = !area->makeGuess(std::move(guess));
