@@ -11,9 +11,10 @@ struct Guess {
 
 class GameArea {
 public:
-    explicit GameArea(std::unique_ptr<GuessChecker> guess_checker);
-    void makeGuess(const SequenceRow& guess_row);
+    explicit GameArea(std::size_t guesses_count, std::unique_ptr<GuessChecker> guess_checker);
+    bool makeGuess(const SequenceRow& guess_row);
 private:
     std::vector<Guess> _guesses;
     std::unique_ptr<GuessChecker> _checker;
+    std::size_t _max_guess_count;
 };

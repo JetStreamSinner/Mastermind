@@ -9,4 +9,5 @@ public:
     virtual int requestSuggestionsCount() const = 0;
     virtual int requestGuess() const = 0;
     virtual std::string lastDescriptionResponse() const = 0;
+    virtual ~AbstractUserRequestAcceptor() = default;
 };

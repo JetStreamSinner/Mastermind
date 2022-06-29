@@ -3,6 +3,7 @@
 #include <memory>
 class AbstractUserRequestAcceptor;
 class AbstractMastermindState;
+class GameArea;
 
 class Mastermind {
 public:
@@ -11,4 +12,5 @@ public:
 private:
     std::unique_ptr<AbstractMastermindState> _current_state;
     std::unique_ptr<AbstractUserRequestAcceptor> _acceptor;
+    std::unique_ptr<GameArea> _area;
 };
