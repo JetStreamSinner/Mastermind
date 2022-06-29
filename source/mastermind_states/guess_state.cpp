@@ -9,16 +9,19 @@ GuessState::GuessState() : _nextState(NextState::Same) {
 }
 
 bool GuessState::exec(std::shared_ptr<GameArea>& area, std::unique_ptr<AbstractUserRequestAcceptor> request_acceptor) {
+    request_acceptor->writeMessage("Make your guess");
     SequenceRow guess = request_acceptor->requestGuess();
     const bool suggestions_end = !area->makeGuess(std::move(guess));
 
     if (suggestions_end) {
+        request_acceptor->writeMessage("Suggestion end");
         _nextState = NextState::Lose;
         return true;
     }
 
     const bool last_guess_valid = area->lastGuessValid();
     if (last_guess_valid) {
+        request_acceptor->writeMessage("Suggestion correct");
         _nextState = NextState::Win;
         return true;
     }
