@@ -4,6 +4,14 @@
 
 class GuessState : public AbstractMastermindState {
 public:
+    explicit GuessState();
     virtual bool exec(std::shared_ptr<GameArea>& area, std::unique_ptr<AbstractUserRequestAcceptor> request_acceptor) final;
     virtual std::unique_ptr<AbstractMastermindState> nextState() final;
+private:
+    enum class NextState {
+        Win,
+        Lose,
+        Same
+    };
+    NextState _nextState;
 };

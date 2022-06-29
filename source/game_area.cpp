@@ -17,3 +17,8 @@ bool GameArea::makeGuess(const SequenceRow& guess_row) {
     _guesses.emplace_back(std::move(next_guess));
     return true;
 }
+
+bool GameArea::lastGuessValid() const {
+    Guess last_guess = _guesses.back();
+    return _checker->guessValid(last_guess.guessed);
+}
