@@ -1,6 +1,6 @@
 #include "win_state.h"
 
-bool WinState::exec(std::unique_ptr<AbstractUserRequestAcceptor> &request_acceptor) {
+bool WinState::exec(std::shared_ptr<GameArea>& area, std::unique_ptr<AbstractUserRequestAcceptor> request_acceptor) {
 
 }
 

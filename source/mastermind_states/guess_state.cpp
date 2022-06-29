@@ -1,6 +1,6 @@
 #include "guess_state.h"
 
-bool GuessState::exec(std::unique_ptr<AbstractUserRequestAcceptor> &request_acceptor) {
+bool GuessState::exec(std::shared_ptr<GameArea>& area, std::unique_ptr<AbstractUserRequestAcceptor> request_acceptor) {
 
 }
 
