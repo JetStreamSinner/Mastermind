@@ -13,6 +13,8 @@ int main(int argc, char *argv[]) {
 
     std::unique_ptr<AbstractUserRequestAcceptor> acceptor = std::make_unique<CliUserRequestAcceptor>(is, out);
     Mastermind mastermind(acceptor);
-    mastermind.nextStep();
+    while (true) {
+        mastermind.nextStep();
+    }
     return 0;
 }
