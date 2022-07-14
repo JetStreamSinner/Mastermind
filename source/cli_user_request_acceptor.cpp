@@ -1,17 +1,6 @@
 #include "cli_user_request_acceptor.h"
 #include <iostream>
-#include <iterator>
-#include <sstream>
-#include <algorithm>
-
-SequenceRow sequenceRowFromString(const std::string &str) {
-    std::stringstream ss(str);
-    SequenceRow out;
-    std::transform(std::istream_iterator<int>(ss), std::istream_iterator<int>(), std::back_inserter(out), [](int val) {
-        return static_cast<Color>(val);
-    });
-    return std::move(out);
-}
+#include "utils.h"
 
 CliUserRequestAcceptor::CliUserRequestAcceptor(std::shared_ptr<std::istream> &in, std::shared_ptr<std::ostream> &out) : _input_stream(in),
                                                                                                                         _output_stream(out) {
