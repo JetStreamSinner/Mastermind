@@ -1,6 +1,8 @@
 #include "guess_state.h"
+#include <iostream>
 #include "../abstract_user_request_acceptor.h"
 #include "../game_area.h"
+#include "../utils.h"
 #include "lose_state.h"
 #include "win_state.h"
 
@@ -24,6 +26,10 @@ bool GuessState::exec(std::shared_ptr<GameArea> &area, const std::unique_ptr<Abs
         _nextState = NextState::Win;
         return true;
     }
+
+    const std::string hint_message = stringFromSequenceRow(area->lastGuessHint());
+    std::cout << "Hint message: " << hint_message << std::endl;
+    request_acceptor->writeMessage(hint_message);
 
     _nextState = NextState::Same;
     return false;

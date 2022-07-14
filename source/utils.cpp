@@ -1,4 +1,5 @@
 #include "utils.h"
+#include <iostream>
 
 #include <algorithm>
 #include <iterator>
@@ -11,4 +12,12 @@ SequenceRow sequenceRowFromString(const std::string &str) {
         return static_cast<Color>(val);
     });
     return std::move(out);
+}
+
+std::string stringFromSequenceRow(const SequenceRow& sequence) {
+    std::stringstream ss;
+    std::for_each(sequence.begin(), sequence.end(), [&ss](auto sequence_item) {
+        ss << static_cast<int>(sequence_item) << " ";
+    });
+    return std::move(ss.str());
 }

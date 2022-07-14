@@ -21,3 +21,10 @@ bool GameArea::lastGuessValid() const {
     Guess last_guess = _guesses.back();
     return _checker->guessValid(last_guess.guessed);
 }
+
+SequenceRow GameArea::lastGuessHint() const {
+    if (_guesses.empty()) {
+        return {};
+    }
+    return _guesses.back().validator;
+}

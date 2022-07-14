@@ -18,7 +18,7 @@ SequenceRow GuessChecker::makeHintRow(const SequenceRow &guess_row) const {
         if (item == *forwarder) {
             hint.push_back(white_color);
             colors_hash.insert(*forwarder);
-        } else if (colors_hash.find(item) != colors_hash.end()) {
+        } else {
             hint.push_back(black_color);
         }
     });
