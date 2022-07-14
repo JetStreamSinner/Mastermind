@@ -8,6 +8,7 @@ SequenceRow sequenceRowFromString(const std::string &str) {
     std::stringstream ss(str);
     SequenceRow out;
     std::transform(std::istream_iterator<int>(ss), std::istream_iterator<int>(), std::back_inserter(out), [](int val) {
+        std::cout << "Input val: " << val << std::endl;
         return static_cast<Color>(val);
     });
     return std::move(out);
@@ -24,14 +25,15 @@ std::size_t CliUserRequestAcceptor::requestSuggestionsCount() const {
 }
 
 SequenceRow CliUserRequestAcceptor::requestTargetRow() const {
+    _input_stream->get();
     std::string raw_guess;
-    *_input_stream >> raw_guess;
+    std::getline(*_input_stream, raw_guess);
     return sequenceRowFromString(raw_guess);
 }
 
 SequenceRow CliUserRequestAcceptor::requestGuess() const {
     std::string raw_guess;
-    *_input_stream >> raw_guess;
+    std::getline(*_input_stream, raw_guess);
     return sequenceRowFromString(raw_guess);
 }
 
