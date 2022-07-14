@@ -1,8 +1,9 @@
 #pragma once
 #include <vector>
 
-enum class EnmColor {
-    Red = 0,
+enum class EnmColor : int {
+    Empty = 0,
+    Red,
     Green,
     Yellow,
     Purple,
