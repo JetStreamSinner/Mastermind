@@ -2,7 +2,6 @@
 #include <vector>
 
 enum class EnmColor : int {
-    Empty = 0,
     Red,
     Green,
     Yellow,
