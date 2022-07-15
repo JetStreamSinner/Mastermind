@@ -1,9 +1,11 @@
 #include "cli_user_request_acceptor.h"
-#include <iostream>
 #include "utils.h"
+#include <iostream>
 
-CliUserRequestAcceptor::CliUserRequestAcceptor(std::shared_ptr<std::istream> &in, std::shared_ptr<std::ostream> &out) : _input_stream(in),
-                                                                                                                        _output_stream(out) {
+CliUserRequestAcceptor::CliUserRequestAcceptor(std::shared_ptr<std::istream> &in, std::shared_ptr<std::ostream> &out,
+                                               std::shared_ptr<AbstractTargetGenerateStrategy> &target_generation_strategy) : _input_stream(in),
+                                                                                                                              _output_stream(out),
+                                                                                                                              _target_generation_strategy(target_generation_strategy) {
 }
 
 std::size_t CliUserRequestAcceptor::requestSuggestionsCount() const {
@@ -13,10 +15,10 @@ std::size_t CliUserRequestAcceptor::requestSuggestionsCount() const {
 }
 
 SequenceRow CliUserRequestAcceptor::requestTargetRow() const {
-    _input_stream->get();
-    std::string raw_guess;
-    std::getline(*_input_stream, raw_guess);
-    return sequenceRowFromString(raw_guess);
+    if (!_target_generation_strategy) {
+        throw std::runtime_error("Target request strategy is not set");
+    }
+    return _target_generation_strategy->getTarget();
 }
 
 SequenceRow CliUserRequestAcceptor::requestGuess() const {

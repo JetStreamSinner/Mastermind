@@ -1,5 +1,6 @@
 #include "abstract_mastermind_state.h"
 #include "cli_user_request_acceptor.h"
+#include "user_input_target_generate_strategy.h"
 #include "mastermind.h"
 #include <iostream>
 
@@ -11,7 +12,9 @@ int main(int argc, char *argv[]) {
 
     });
 
-    std::unique_ptr<AbstractUserRequestAcceptor> acceptor = std::make_unique<CliUserRequestAcceptor>(is, out);
+    std::shared_ptr<AbstractTargetGenerateStrategy> generation_strategy = std::make_shared<UserInputTargetGenerateStrategy>(is);
+
+    std::unique_ptr<AbstractUserRequestAcceptor> acceptor = std::make_unique<CliUserRequestAcceptor>(is, out, generation_strategy);
     Mastermind mastermind(acceptor);
     while (true) {
         mastermind.nextStep();
