@@ -3,16 +3,25 @@
 #include <random>
 #include <unordered_set>
 
-GuessChecker::GuessChecker(const SequenceRow &target_row) : _target_row(target_row) {
+class GuessChecker::GuessCheckerImpl {
+public:
+    explicit GuessCheckerImpl(const SequenceRow &target_row);
+    SequenceRow makeHintRow(const SequenceRow &guess_row) const;
+    bool guessValid(const SequenceRow &guess_row);
+
+private:
+    SequenceRow _target_row;
+};
+
+GuessChecker::GuessCheckerImpl::GuessCheckerImpl(const SequenceRow &target_row) : _target_row(target_row) {
 }
 
-SequenceRow GuessChecker::makeHintRow(const SequenceRow &guess_row) const {
+SequenceRow GuessChecker::GuessCheckerImpl::makeHintRow(const SequenceRow &guess_row) const {
     SequenceRow hint;
     auto guess_forwarder = guess_row.begin();
     std::unordered_set<Color> colors_hash(_target_row.begin(), _target_row.end());
 
     std::for_each(_target_row.begin(), _target_row.end(), [&guess_forwarder, &hint, &colors_hash](auto base_item) {
-
         const Color white_color = Color::White;
         const Color black_color = Color::Black;
 
@@ -31,6 +40,19 @@ SequenceRow GuessChecker::makeHintRow(const SequenceRow &guess_row) const {
     return hint;
 }
 
-bool GuessChecker::guessValid(const SequenceRow &guess_row) const {
+bool GuessChecker::GuessCheckerImpl::guessValid(const SequenceRow &guess_row) {
     return guess_row == _target_row;
 }
+
+GuessChecker::GuessChecker(const SequenceRow &target_row) : _impl(std::make_unique<GuessChecker::GuessCheckerImpl>(target_row)) {
+}
+
+SequenceRow GuessChecker::makeHintRow(const SequenceRow &guess_row) const {
+    return _impl->makeHintRow(guess_row);
+}
+
+bool GuessChecker::guessValid(const SequenceRow &guess_row) const {
+    return _impl->guessValid(guess_row);
+}
+
+GuessChecker::~GuessChecker() = default;
