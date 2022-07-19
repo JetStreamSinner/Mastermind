@@ -6,8 +6,10 @@
 
 class UserInputTargetGenerateStrategy : public AbstractTargetGenerateStrategy {
 public:
-    explicit UserInputTargetGenerateStrategy(std::shared_ptr<std::istream>& input_stream);
+    explicit UserInputTargetGenerateStrategy(std::shared_ptr<std::istream> input_stream);
     SequenceRow getTarget() const override;
+    ~UserInputTargetGenerateStrategy();
 private:
-    std::shared_ptr<std::istream> _input_stream;
+    class UserInputTargetGenerateStrategyImpl;
+    std::unique_ptr<UserInputTargetGenerateStrategyImpl> _impl;
 };
