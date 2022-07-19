@@ -1,10 +1,10 @@
 #include "guess_state.h"
-#include <iostream>
-#include "../abstract_user_request_acceptor.h"
 #include "../game_area.h"
+#include "../interfaces/abstract_user_request_acceptor.h"
 #include "../utils.h"
 #include "lose_state.h"
 #include "win_state.h"
+#include <iostream>
 
 GuessState::GuessState() : _nextState(NextState::Same) {
 }

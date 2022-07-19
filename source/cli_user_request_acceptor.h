@@ -1,7 +1,7 @@
 #pragma once
 
-#include "abstract_user_request_acceptor.h"
-#include "abstract_target_generate_strategy.h"
+#include "interfaces/abstract_target_generate_strategy.h"
+#include "interfaces/abstract_user_request_acceptor.h"
 #include <memory>
 
 class CliUserRequestAcceptor : public AbstractUserRequestAcceptor {

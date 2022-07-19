@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../abstract_mastermind_state.h"
+#include "../interfaces/abstract_mastermind_state.h"
 
 class WinState : public AbstractMastermindState {
 public:

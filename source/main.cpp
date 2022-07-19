@@ -1,7 +1,7 @@
-#include "abstract_mastermind_state.h"
 #include "cli_user_request_acceptor.h"
-#include "user_input_target_generate_strategy.h"
+#include "interfaces/abstract_mastermind_state.h"
 #include "mastermind.h"
+#include "user_input_target_generate_strategy.h"
 #include <iostream>
 
 int main(int argc, char *argv[]) {

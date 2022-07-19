@@ -1,8 +1,8 @@
 #include "mastermind.h"
-#include "abstract_mastermind_state.h"
-#include "abstract_user_request_acceptor.h"
 #include "game_area.h"
 #include "guess_checker.h"
+#include "interfaces/abstract_mastermind_state.h"
+#include "interfaces/abstract_user_request_acceptor.h"
 #include "mastermind_states/start_state.h"
 
 

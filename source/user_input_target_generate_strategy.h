@@ -1,7 +1,7 @@
 #pragma once
 
+#include "interfaces/abstract_target_generate_strategy.h"
 #include <memory>
-#include "abstract_target_generate_strategy.h"
 
 
 class UserInputTargetGenerateStrategy : public AbstractTargetGenerateStrategy {
