@@ -1,13 +1,9 @@
 #pragma once
 
-#include "types.h"
 #include <memory>
-class GuessChecker;
+#include "types.h"
 
-struct Guess {
-    SequenceRow validator;
-    SequenceRow guessed;
-};
+class GuessChecker;
 
 class GameArea {
 public:
@@ -15,9 +11,8 @@ public:
     bool makeGuess(const SequenceRow &guess_row);
     bool lastGuessValid() const;
     SequenceRow lastGuessHint() const;
-
+    ~GameArea();
 private:
-    std::vector<Guess> _guesses;
-    std::unique_ptr<GuessChecker> _checker;
-    std::size_t _max_guess_count;
+    class GameAreaImpl;
+    std::unique_ptr<GameAreaImpl> _impl;
 };
