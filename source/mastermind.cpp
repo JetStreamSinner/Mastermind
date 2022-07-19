@@ -5,7 +5,6 @@
 #include "interfaces/abstract_user_request_acceptor.h"
 #include "mastermind_states/start_state.h"
 
-
 class Mastermind::MastermindImpl {
 public:
     explicit MastermindImpl(std::unique_ptr<AbstractUserRequestAcceptor> &acceptor);

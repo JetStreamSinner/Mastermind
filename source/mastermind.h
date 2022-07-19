@@ -2,8 +2,6 @@
 
 #include <memory>
 class AbstractUserRequestAcceptor;
-class AbstractMastermindState;
-class GameArea;
 
 class Mastermind {
 public:
