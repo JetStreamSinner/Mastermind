@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     std::shared_ptr<AbstractTargetGenerateStrategy> generation_strategy = std::make_shared<UserInputTargetGenerateStrategy>(is);
 
     std::unique_ptr<AbstractUserRequestAcceptor> acceptor = std::make_unique<CliUserRequestAcceptor>(is, out, generation_strategy);
-    Mastermind mastermind(acceptor);
+    Mastermind mastermind(std::move(acceptor));
     while (true) {
         mastermind.nextStep();
     }

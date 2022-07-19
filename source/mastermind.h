@@ -7,11 +7,10 @@ class GameArea;
 
 class Mastermind {
 public:
-    explicit Mastermind(std::unique_ptr<AbstractUserRequestAcceptor> &acceptor);
+    explicit Mastermind(std::unique_ptr<AbstractUserRequestAcceptor> acceptor);
     void nextStep();
-
+    ~Mastermind();
 private:
-    std::unique_ptr<AbstractMastermindState> _current_state;
-    std::unique_ptr<AbstractUserRequestAcceptor> _acceptor;
-    std::shared_ptr<GameArea> _area;
+    class MastermindImpl;
+    std::unique_ptr<MastermindImpl> _impl;
 };
