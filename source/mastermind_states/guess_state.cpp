@@ -6,10 +6,26 @@
 #include "win_state.h"
 #include <iostream>
 
-GuessState::GuessState() : _nextState(NextState::Same) {
+enum class NextState {
+    Win,
+    Lose,
+    Same
+};
+
+class GuessState::GuessStateImpl {
+public:
+    explicit GuessStateImpl();
+    bool exec(std::shared_ptr<GameArea> &area, const std::unique_ptr<AbstractUserRequestAcceptor> &request_acceptor);
+    std::unique_ptr<AbstractMastermindState> nextState();
+private:
+    NextState _nextState;
+};
+
+GuessState::GuessStateImpl::GuessStateImpl() : _nextState(NextState::Same) {
+
 }
 
-bool GuessState::exec(std::shared_ptr<GameArea> &area, const std::unique_ptr<AbstractUserRequestAcceptor> &request_acceptor) {
+bool GuessState::GuessStateImpl::exec(std::shared_ptr<GameArea> &area, const std::unique_ptr<AbstractUserRequestAcceptor> &request_acceptor) {
     request_acceptor->writeMessage("Make your guess");
     SequenceRow guess = request_acceptor->requestGuess();
     const bool suggestions_end = !area->makeGuess(guess);
@@ -35,7 +51,7 @@ bool GuessState::exec(std::shared_ptr<GameArea> &area, const std::unique_ptr<Abs
     return false;
 }
 
-std::unique_ptr<AbstractMastermindState> GuessState::nextState() {
+std::unique_ptr<AbstractMastermindState> GuessState::GuessStateImpl::nextState() {
     switch (_nextState) {
         case NextState::Win:
             return std::make_unique<WinState>();
@@ -46,3 +62,16 @@ std::unique_ptr<AbstractMastermindState> GuessState::nextState() {
     }
     throw std::runtime_error("State error");
 }
+
+GuessState::GuessState() : _impl(std::make_unique<GuessState::GuessStateImpl>()) {
+}
+
+bool GuessState::exec(std::shared_ptr<GameArea> &area, const std::unique_ptr<AbstractUserRequestAcceptor> &request_acceptor) {
+    return _impl->exec(area, request_acceptor);
+}
+
+std::unique_ptr<AbstractMastermindState> GuessState::nextState() {
+    return _impl->nextState();
+}
+
+GuessState::~GuessState() = default;

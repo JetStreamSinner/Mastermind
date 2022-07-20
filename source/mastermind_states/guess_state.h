@@ -7,12 +7,9 @@ public:
     explicit GuessState();
     bool exec(std::shared_ptr<GameArea> &area, const std::unique_ptr<AbstractUserRequestAcceptor> &request_acceptor) final;
     std::unique_ptr<AbstractMastermindState> nextState() final;
+    ~GuessState() override;
 
 private:
-    enum class NextState {
-        Win,
-        Lose,
-        Same
-    };
-    NextState _nextState;
+    class GuessStateImpl;
+    std::unique_ptr<GuessStateImpl> _impl;
 };
