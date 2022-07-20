@@ -1,7 +1,7 @@
 #pragma once
 
-#include <memory>
 #include "types.h"
+#include <memory>
 
 class GuessChecker {
 public:
@@ -9,6 +9,7 @@ public:
     SequenceRow makeHintRow(const SequenceRow &guess_row) const;
     bool guessValid(const SequenceRow &guess_row) const;
     ~GuessChecker();
+
 private:
     class GuessCheckerImpl;
     std::unique_ptr<GuessCheckerImpl> _impl;

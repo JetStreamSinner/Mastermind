@@ -1,8 +1,8 @@
 #pragma once
 
-#include <memory>
 #include "interfaces/abstract_target_generate_strategy.h"
 #include "interfaces/abstract_user_request_acceptor.h"
+#include <memory>
 
 class CliUserRequestAcceptor : public AbstractUserRequestAcceptor {
 public:
@@ -13,6 +13,7 @@ public:
     SequenceRow requestGuess() const final;
     void writeMessage(const std::string &message) const final;
     ~CliUserRequestAcceptor() override;
+
 private:
     class CliUserRequestAcceptorImpl;
     std::unique_ptr<CliUserRequestAcceptorImpl> _impl;

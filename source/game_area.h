@@ -1,7 +1,7 @@
 #pragma once
 
-#include <memory>
 #include "types.h"
+#include <memory>
 
 class GuessChecker;
 
@@ -12,6 +12,7 @@ public:
     bool lastGuessValid() const;
     SequenceRow lastGuessHint() const;
     ~GameArea();
+
 private:
     class GameAreaImpl;
     std::unique_ptr<GameAreaImpl> _impl;

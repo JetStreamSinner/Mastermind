@@ -19,7 +19,6 @@ std::unique_ptr<AbstractMastermindState> LoseState::LoseStateImpl::nextState() {
 }
 
 LoseState::LoseState() : _impl(std::make_unique<LoseState::LoseStateImpl>()) {
-
 }
 
 bool LoseState::exec(std::shared_ptr<GameArea> &area, const std::unique_ptr<AbstractUserRequestAcceptor> &request_acceptor) {

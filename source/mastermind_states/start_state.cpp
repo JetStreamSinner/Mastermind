@@ -27,7 +27,6 @@ std::unique_ptr<AbstractMastermindState> StartState::StartStateImpl::nextState()
 }
 
 StartState::StartState() : _impl(std::make_unique<StartState::StartStateImpl>()) {
-
 }
 
 bool StartState::exec(std::shared_ptr<GameArea> &area, const std::unique_ptr<AbstractUserRequestAcceptor> &request_acceptor) {

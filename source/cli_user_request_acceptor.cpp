@@ -71,4 +71,3 @@ void CliUserRequestAcceptor::writeMessage(const std::string &message) const {
 }
 
 CliUserRequestAcceptor::~CliUserRequestAcceptor() = default;
-

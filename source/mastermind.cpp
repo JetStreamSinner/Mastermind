@@ -10,6 +10,7 @@ public:
     explicit MastermindImpl(std::unique_ptr<AbstractUserRequestAcceptor> &acceptor);
     void nextStep();
     ~MastermindImpl() = default;
+
 private:
     std::unique_ptr<AbstractMastermindState> _current_state;
     std::unique_ptr<AbstractUserRequestAcceptor> _acceptor;
@@ -29,7 +30,7 @@ void Mastermind::MastermindImpl::nextStep() {
 }
 
 
-Mastermind::Mastermind(std::unique_ptr<AbstractUserRequestAcceptor> acceptor) : _impl(std::make_unique<Mastermind::MastermindImpl>(acceptor)){
+Mastermind::Mastermind(std::unique_ptr<AbstractUserRequestAcceptor> acceptor) : _impl(std::make_unique<Mastermind::MastermindImpl>(acceptor)) {
 }
 
 void Mastermind::nextStep() {

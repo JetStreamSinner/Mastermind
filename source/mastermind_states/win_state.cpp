@@ -18,8 +18,7 @@ std::unique_ptr<AbstractMastermindState> WinState::WinStateImpl::nextState() {
     return std::make_unique<StartState>();
 }
 
-WinState::WinState() : _impl(std::make_unique<WinState::WinStateImpl>()){
-
+WinState::WinState() : _impl(std::make_unique<WinState::WinStateImpl>()) {
 }
 
 bool WinState::exec(std::shared_ptr<GameArea> &area, const std::unique_ptr<AbstractUserRequestAcceptor> &request_acceptor) {

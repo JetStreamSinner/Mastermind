@@ -17,12 +17,12 @@ public:
     explicit GuessStateImpl();
     bool exec(std::shared_ptr<GameArea> &area, const std::unique_ptr<AbstractUserRequestAcceptor> &request_acceptor);
     std::unique_ptr<AbstractMastermindState> nextState();
+
 private:
     NextState _nextState;
 };
 
 GuessState::GuessStateImpl::GuessStateImpl() : _nextState(NextState::Same) {
-
 }
 
 bool GuessState::GuessStateImpl::exec(std::shared_ptr<GameArea> &area, const std::unique_ptr<AbstractUserRequestAcceptor> &request_acceptor) {
