@@ -4,7 +4,13 @@
 #include "../interfaces/abstract_user_request_acceptor.h"
 #include "guess_state.h"
 
-bool StartState::exec(std::shared_ptr<GameArea> &area, const std::unique_ptr<AbstractUserRequestAcceptor> &request_acceptor) {
+class StartState::StartStateImpl {
+public:
+    bool exec(std::shared_ptr<GameArea> &area, const std::unique_ptr<AbstractUserRequestAcceptor> &request_acceptor);
+    std::unique_ptr<AbstractMastermindState> nextState();
+};
+
+bool StartState::StartStateImpl::exec(std::shared_ptr<GameArea> &area, const std::unique_ptr<AbstractUserRequestAcceptor> &request_acceptor) {
     request_acceptor->writeMessage("Welcome to the game");
     request_acceptor->writeMessage("Write suggestions count");
     const std::size_t suggestions_count = request_acceptor->requestSuggestionsCount();
@@ -16,6 +22,20 @@ bool StartState::exec(std::shared_ptr<GameArea> &area, const std::unique_ptr<Abs
     return true;
 }
 
-std::unique_ptr<AbstractMastermindState> StartState::nextState() {
+std::unique_ptr<AbstractMastermindState> StartState::StartStateImpl::nextState() {
     return std::make_unique<GuessState>();
 }
+
+StartState::StartState() : _impl(std::make_unique<StartState::StartStateImpl>()) {
+
+}
+
+bool StartState::exec(std::shared_ptr<GameArea> &area, const std::unique_ptr<AbstractUserRequestAcceptor> &request_acceptor) {
+    return _impl->exec(area, request_acceptor);
+}
+
+std::unique_ptr<AbstractMastermindState> StartState::nextState() {
+    return _impl->nextState();
+}
+
+StartState::~StartState() = default;
