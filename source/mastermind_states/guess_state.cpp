@@ -1,6 +1,7 @@
 #include "guess_state.h"
 #include "../game_area.h"
-#include "../interfaces/abstract_user_request_acceptor.h"
+#include "../interfaces/abstract_input_writer.h"
+#include "../interfaces/abstract_input_reader.h"
 #include "../utils.h"
 #include "lose_state.h"
 #include "win_state.h"
@@ -15,7 +16,9 @@ enum class NextState {
 class GuessState::GuessStateImpl {
 public:
     explicit GuessStateImpl();
-    bool exec(std::shared_ptr<GameArea> &area, const std::unique_ptr<AbstractUserRequestAcceptor> &request_acceptor);
+    bool exec(std::shared_ptr<GameArea> &area,
+              const std::unique_ptr<AbstractInputWriter> &writer,
+              const std::unique_ptr<AbstractInputReader> &reader);
     std::unique_ptr<AbstractMastermindState> nextState();
 
 private:
@@ -25,27 +28,28 @@ private:
 GuessState::GuessStateImpl::GuessStateImpl() : _nextState(NextState::Same) {
 }
 
-bool GuessState::GuessStateImpl::exec(std::shared_ptr<GameArea> &area, const std::unique_ptr<AbstractUserRequestAcceptor> &request_acceptor) {
-    request_acceptor->writeMessage("Make your guess");
-    SequenceRow guess = request_acceptor->requestGuess();
+bool GuessState::GuessStateImpl::exec(std::shared_ptr<GameArea> &area,
+                                      const std::unique_ptr<AbstractInputWriter> &writer,
+                                      const std::unique_ptr<AbstractInputReader> &reader) {
+    writer->writeMessage("Make your guess");
+    SequenceRow guess = reader->requestGuess();
     const bool suggestions_end = !area->makeGuess(guess);
 
     if (suggestions_end) {
-        request_acceptor->writeMessage("Suggestion end");
+        writer->writeMessage("Suggestion end");
         _nextState = NextState::Lose;
         return true;
     }
 
     const bool last_guess_valid = area->lastGuessValid();
     if (last_guess_valid) {
-        request_acceptor->writeMessage("Suggestion correct");
+        writer->writeMessage("Suggestion correct");
         _nextState = NextState::Win;
         return true;
     }
 
     const std::string hint_message = stringFromSequenceRow(area->lastGuessHint());
-    std::cout << "Hint message: " << hint_message << std::endl;
-    request_acceptor->writeMessage(hint_message);
+    writer->writeMessage(hint_message);
 
     _nextState = NextState::Same;
     return false;
@@ -66,8 +70,10 @@ std::unique_ptr<AbstractMastermindState> GuessState::GuessStateImpl::nextState()
 GuessState::GuessState() : _impl(std::make_unique<GuessState::GuessStateImpl>()) {
 }
 
-bool GuessState::exec(std::shared_ptr<GameArea> &area, const std::unique_ptr<AbstractUserRequestAcceptor> &request_acceptor) {
-    return _impl->exec(area, request_acceptor);
+bool GuessState::exec(std::shared_ptr<GameArea> &area,
+                      const std::unique_ptr<AbstractInputWriter> &writer,
+                      const std::unique_ptr<AbstractInputReader> &reader) {
+    return _impl->exec(area, writer, reader);
 }
 
 std::unique_ptr<AbstractMastermindState> GuessState::nextState() {

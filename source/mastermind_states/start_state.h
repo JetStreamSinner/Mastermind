@@ -5,7 +5,9 @@
 class StartState : public AbstractMastermindState {
 public:
     explicit StartState();
-    bool exec(std::shared_ptr<GameArea> &area, const std::unique_ptr<AbstractUserRequestAcceptor> &request_acceptor) final;
+    bool exec(std::shared_ptr<GameArea> &area,
+              const std::unique_ptr<AbstractInputWriter> &writer,
+              const std::unique_ptr<AbstractInputReader> &reader) final;
     std::unique_ptr<AbstractMastermindState> nextState() final;
     ~StartState() override;
 
