@@ -2,8 +2,8 @@
 #include "guess_checker.h"
 
 struct Guess {
-    SequenceRow validator;
-    SequenceRow guessed;
+    SequenceRow guess;
+    SequenceRow hint;
 };
 
 class GameArea::GameAreaImpl {
@@ -29,21 +29,21 @@ bool GameArea::GameAreaImpl::makeGuess(const SequenceRow &guess_row) {
     }
 
     SequenceRow description_row = _checker->makeHintRow(guess_row);
-    Guess next_guess{description_row, guess_row};
+    Guess next_guess{guess_row, description_row};
     _guesses.emplace_back(std::move(next_guess));
     return true;
 }
 
 bool GameArea::GameAreaImpl::lastGuessValid() const {
     Guess last_guess = _guesses.back();
-    return _checker->guessValid(last_guess.guessed);
+    return _checker->guessValid(last_guess.guess);
 }
 
 SequenceRow GameArea::GameAreaImpl::lastGuessHint() {
     if (_guesses.empty()) {
         return {};
     }
-    return _guesses.back().validator;
+    return _guesses.back().hint;
 }
 
 GameArea::GameArea(std::size_t guesses_count, std::unique_ptr<GuessChecker> guess_checker) : _impl(std::make_unique<GameArea::GameAreaImpl>(guesses_count, std::move(guess_checker))) {

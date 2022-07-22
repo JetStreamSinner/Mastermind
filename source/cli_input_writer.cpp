@@ -18,7 +18,7 @@ void CliInputWriter::CliInputWriterImpl::writeMessage(const std::string &message
     _outstr->put('\n');
 }
 
-CliInputWriter::CliInputWriter(std::shared_ptr<std::ostream> out) : _impl(std::make_unique<CliInputWriter::CliInputWriterImpl>(out)) {
+CliInputWriter::CliInputWriter(std::shared_ptr<std::ostream> out) : _impl(std::make_unique<CliInputWriter::CliInputWriterImpl>(std::move(out))) {
 
 }
 

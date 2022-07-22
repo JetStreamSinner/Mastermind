@@ -41,7 +41,7 @@ SequenceRow CliInputReader::CliInputReaderImpl::requestGuess() const {
 }
 
 CliInputReader::CliInputReader(std::shared_ptr<std::istream> in, std::shared_ptr<AbstractTargetGenerateStrategy> target_generator)
-    : _impl(std::make_unique<CliInputReader::CliInputReaderImpl>(in, target_generator)) {
+    : _impl(std::make_unique<CliInputReader::CliInputReaderImpl>(std::move(in), std::move(target_generator))) {
 }
 
 SequenceRow CliInputReader::requestTargetRow() const {
