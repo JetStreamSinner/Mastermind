@@ -4,6 +4,8 @@
 struct Guess {
     SequenceRow guess;
     SequenceRow hint;
+    explicit Guess(const SequenceRow &_guess, const SequenceRow &_hint) : guess(_guess), hint(_hint) {
+    }
 };
 
 class GameArea::GameAreaImpl {
@@ -28,8 +30,8 @@ bool GameArea::GameAreaImpl::makeGuess(const SequenceRow &guess_row) {
         return false;
     }
 
-    SequenceRow description_row = _checker->makeHintRow(guess_row);
-    Guess next_guess{guess_row, description_row};
+    SequenceRow hint = _checker->makeHintRow(guess_row);
+    Guess next_guess(guess_row, hint);
     _guesses.emplace_back(std::move(next_guess));
     return true;
 }
